@@ -45,7 +45,6 @@ export const action: ActionFunction = async ({ request, params }) => {
     if (model === "section") {
       const menuId = formData.get("menuId");
       if (typeof menuId === "string") {
-        console.log("create section", { menuId });
         await createSection({ menuId, title1: "", order: 0 });
       }
     } else if (model === "item") {
@@ -191,7 +190,7 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   if (caught.status === 404) {
-    return <div>Note not found</div>;
+    return <div>Menu no encontrado</div>;
   }
 
   throw new Error(`Unexpected caught response with status: ${caught.status}`);

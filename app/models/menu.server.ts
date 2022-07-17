@@ -113,11 +113,14 @@ export function updateItem({ id, text1 }: Pick<Item, "id" | "text1">) {
   });
 }
 
-export function deleteMenu({
-  id,
-  userId,
-}: Pick<Menu, "id"> & { userId: User["id"] }) {
+export async function deleteUserMenus({ userId }: { userId: User["id"] }) {
+  await prisma.item.deleteMany({
+    where: { section: { menu: { userId } } },
+  });
+  await prisma.section.deleteMany({
+    where: { menu: { userId } },
+  });
   return prisma.menu.deleteMany({
-    where: { id, userId },
+    where: { userId },
   });
 }

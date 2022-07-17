@@ -23,7 +23,7 @@ export default function MenuPage() {
     <div className="flex h-full min-h-screen flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
         <h1 className="text-3xl font-bold">
-          <Link to=".">Menu</Link>
+          <Link to="/">Easy Menu</Link>
         </h1>
         <p>{user.email}</p>
       </header>
