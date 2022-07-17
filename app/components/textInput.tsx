@@ -6,7 +6,10 @@ function TextInput({ className, ...props }: Props) {
   return (
     <input
       {...props}
-      className={clsx(className, "w-full bg-inherit placeholder:text-gray-400")}
+      className={clsx(
+        className,
+        "w-full bg-inherit placeholder:italic placeholder:text-gray-400"
+      )}
     />
   );
 }

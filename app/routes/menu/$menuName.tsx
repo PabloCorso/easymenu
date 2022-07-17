@@ -1,6 +1,6 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useCatch, useLoaderData, useTransition } from "@remix-run/react";
+import { Form, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type {
   Item,
@@ -36,7 +36,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   return json<LoaderData>({ menu });
 };
 
-export const action: ActionFunction = async ({ request, params }) => {
+export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const formAction = formData.get("_action");
   const model = formData.get("model");
@@ -69,8 +69,13 @@ export const action: ActionFunction = async ({ request, params }) => {
     } else if (model === "item") {
       const id = formData.get("id");
       const text1 = formData.get("text1");
-      if (typeof id === "string" && typeof text1 === "string") {
-        await updateItem({ id, text1 });
+      const price1 = formData.get("price1");
+      if (
+        typeof id === "string" &&
+        typeof text1 === "string" &&
+        typeof price1 === "string"
+      ) {
+        await updateItem({ id, text1, price1: Number(price1) ?? undefined });
       }
     }
   }
@@ -80,46 +85,50 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function NoteDetailsPage() {
   const data = useLoaderData() as LoaderData;
-  const transition = useTransition();
 
   return (
-    <div className="rounded-2xl bg-gray-900 p-4 text-gray-50">
-      <MenuTitleInput className="mb-8" menu={data.menu} />
+    <div className="relative flex justify-center">
+      <div className="w-full max-w-[500px] rounded-2xl bg-gray-900 p-4 text-gray-50">
+        <MenuTitleInput className="mb-8" menu={data.menu} />
 
-      <ul className="flex flex-col gap-6">
-        {data.menu.sections.map((section) => (
-          <li key={section.id}>
-            <SectionInput
-              className="mb-4 rounded-sm bg-white p-3 pl-4 text-gray-900"
-              section={section}
-            />
-            <ul className="flex flex-col gap-2">
-              {section.items.map((item) => (
-                <li key={item.id}>
-                  <ItemInput item={item} />
+        <ul className="flex flex-col gap-6">
+          {data.menu.sections.map((section) => (
+            <li key={section.id}>
+              <SectionInput
+                className="mb-4 rounded-sm bg-white p-3 text-gray-900"
+                section={section}
+              />
+              <ul className="flex flex-col gap-2">
+                {section.items.map((item) => (
+                  <li key={item.id}>
+                    <ItemInput item={item} />
+                  </li>
+                ))}
+                <li>
+                  <Form method="post">
+                    <MetaInput name="_action" value="create" />
+                    <MetaInput name="model" value="item" />
+                    <MetaInput name="sectionId" value={section.id} />
+                    <button type="submit" className="text-blue-200">
+                      Agregar nuevo +
+                    </button>
+                  </Form>
                 </li>
-              ))}
-              <li>
-                <Form method="post">
-                  <MetaInput name="_action" value="create" />
-                  <MetaInput name="model" value="item" />
-                  <MetaInput name="sectionId" value={section.id} />
-                  <button type="submit">Agregar item</button>
-                </Form>
-              </li>
-            </ul>
+              </ul>
+            </li>
+          ))}
+          <li>
+            <Form method="post">
+              <MetaInput name="_action" value="create" />
+              <MetaInput name="model" value="section" />
+              <MetaInput name="menuId" value={data.menu.id} />
+              <button type="submit" className="text-blue-200">
+                Nueva sección +
+              </button>
+            </Form>
           </li>
-        ))}
-        <li>
-          <Form method="post">
-            <MetaInput name="_action" value="create" />
-            <MetaInput name="model" value="section" />
-            <MetaInput name="menuId" value={data.menu.id} />
-            <button type="submit">Agregar sección</button>
-          </Form>
-        </li>
-      </ul>
-      {transition.state === "submitting" ? <p>Saving...</p> : null}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -158,9 +167,9 @@ function SectionInput({
       <MetaInput name="id" value={section.id} />
       <TextInput
         name="title1"
-        className="text-xl font-bold"
+        className="pl-1 text-xl font-bold"
         defaultValue={section.title1 || ""}
-        placeholder="Carnes..."
+        placeholder="Nueva sección"
       />
     </AutoSubmitForm>
   );
@@ -171,11 +180,21 @@ function ItemInput({ item }: { item: Item }) {
     <AutoSubmitForm>
       <MetaInput name="model" value="item" />
       <MetaInput name="id" value={item.id} />
-      <TextInput
-        name="text1"
-        defaultValue={item.text1 || ""}
-        placeholder="Pollo a las brasas..."
-      />
+      <fieldset className="flex">
+        <TextInput
+          name="text1"
+          className="m-auto w-full"
+          defaultValue={item.text1 || ""}
+          placeholder="Pollo a las brasas..."
+        />
+        <input
+          type="number"
+          name="price1"
+          className="max-w-[40px] bg-inherit text-right placeholder:italic"
+          defaultValue={item.price1 || ""}
+          placeholder="100"
+        />
+      </fieldset>
     </AutoSubmitForm>
   );
 }

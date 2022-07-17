@@ -104,11 +104,16 @@ export function createItem({
   });
 }
 
-export function updateItem({ id, text1 }: Pick<Item, "id" | "text1">) {
+export function updateItem({
+  id,
+  text1,
+  price1,
+}: Pick<Item, "id" | "text1" | "price1">) {
   return prisma.item.update({
     where: { id },
     data: {
       text1,
+      price1,
     },
   });
 }

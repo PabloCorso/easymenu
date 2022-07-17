@@ -14,30 +14,64 @@ export function buildMenu({
     userId,
     sections: [
       {
-        title1: "Entrantes",
+        title1: "🍔 Hamburguesas",
         order: 0,
         items: [
           {
-            text1: "Milanesas fileteadas",
-            price1: 4,
+            text1: "Clásica con lechuga y tomate",
+            price1: 190,
           },
           {
-            text1: "Papas fritas",
-            price1: 3,
+            text1: "Doble smash",
+            price1: 220,
+          },
+          {
+            text1: "Pulled pork",
+            price1: 260,
+          },
+          {
+            text1: "Hamburguesa vegana",
+            price1: 260,
           },
         ],
       },
       {
-        title1: "Carnes",
-        order: 0,
+        title1: "🍕 Pizzas",
+        order: 1,
         items: [
           {
-            text1: "Entraña",
-            price1: 15,
+            text1: "Pizza con muzzarella",
+            price1: 120,
           },
           {
-            text1: "Vacío",
-            price1: 17,
+            text1: "Pizza con champiñones",
+            price1: 140,
+          },
+          {
+            text1: "Pizza con peperoni",
+            price1: 140,
+          },
+          {
+            text1: "Pizza bacon & BBQ",
+            price1: 160,
+          },
+        ],
+      },
+      {
+        title1: "🍰 Postres",
+        order: 2,
+        items: [
+          {
+            text1: "Cheese cake",
+            price1: 120,
+          },
+          {
+            text1: "Carrot cake",
+            price1: 150,
+          },
+          {
+            text1: "Flan con dulce de leche",
+            price1: 90,
           },
         ],
       },
