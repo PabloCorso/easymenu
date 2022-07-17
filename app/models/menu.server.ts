@@ -74,7 +74,7 @@ export function createSection({
 }: Pick<Section, "menuId" | "title1" | "order">) {
   return prisma.section.create({
     data: {
-      menu: { connect: { id: menuId } },
+      menuId,
       title1,
       order,
     },
@@ -97,7 +97,7 @@ export function createItem({
 }: Pick<Item, "sectionId" | "text1" | "price1">) {
   return prisma.item.create({
     data: {
-      section: { connect: { id: sectionId } },
+      sectionId,
       text1,
       price1,
     },

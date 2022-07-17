@@ -44,6 +44,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     if (model === "section") {
       const menuId = formData.get("menuId");
       if (typeof menuId === "string") {
+        console.log("create section", { menuId });
         await createSection({ menuId, title1: "", order: 0 });
       }
     } else if (model === "item") {
@@ -99,6 +100,7 @@ export default function NoteDetailsPage() {
                 <Form method="post">
                   <input name="_action" value="create" readOnly hidden />
                   <input name="model" value="item" readOnly hidden />
+                  <input name="sectionId" value={section.id} readOnly hidden />
                   <button type="submit">Agregar item</button>
                 </Form>
               </li>
@@ -109,7 +111,8 @@ export default function NoteDetailsPage() {
           <Form method="post">
             <input name="_action" value="create" readOnly hidden />
             <input name="model" value="section" readOnly hidden />
-            <button type="submit">Agregar seccion</button>
+            <input name="menuId" value={data.menu.id} readOnly hidden />
+            <button type="submit">Agregar sección</button>
           </Form>
         </li>
       </ul>
@@ -145,7 +148,6 @@ function SectionInput({
     <AutoSubmitForm>
       <input name="model" value="section" readOnly hidden />
       <input name="id" value={section.id} readOnly hidden />
-      <input name="menuId" value={menuId} readOnly hidden />
       <input
         name="title1"
         className="text-xl font-bold"
@@ -168,7 +170,6 @@ function ItemInput({
     <AutoSubmitForm>
       <input name="model" value="item" readOnly hidden />
       <input name="id" value={item.id} readOnly hidden />
-      <input name="sectionId" value={sectionId} readOnly hidden />
       <input
         name="title1"
         className="text-lg font-bold"
