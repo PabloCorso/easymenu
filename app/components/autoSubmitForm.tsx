@@ -2,7 +2,7 @@ import type { FormProps } from "@remix-run/react";
 import { Form, useSubmit } from "@remix-run/react";
 import { useDebounce } from "~/hooks";
 
-const AutoSubmitForm = (props: FormProps) => {
+function AutoSubmitForm(props: FormProps) {
   const submit = useSubmit();
   const debouncedSubmit = useDebounce(submit, 500);
 
@@ -11,6 +11,6 @@ const AutoSubmitForm = (props: FormProps) => {
   }
 
   return <Form method="post" onChange={handleChange} {...props} />;
-};
+}
 
 export { AutoSubmitForm };

@@ -17,7 +17,7 @@ import {
   updateItem,
 } from "~/models/menu.server";
 import { requireUserId } from "~/session.server";
-import { AutoSubmitForm } from "~/components";
+import { AutoSubmitForm, MetaInput } from "~/components";
 
 type LoaderData = {
   menu: NonNullable<MenuWithSections>;
@@ -98,9 +98,9 @@ export default function NoteDetailsPage() {
               ))}
               <li>
                 <Form method="post">
-                  <input name="_action" value="create" readOnly hidden />
-                  <input name="model" value="item" readOnly hidden />
-                  <input name="sectionId" value={section.id} readOnly hidden />
+                  <MetaInput name="_action" value="create" />
+                  <MetaInput name="model" value="item" />
+                  <MetaInput name="sectionId" value={section.id} />
                   <button type="submit">Agregar item</button>
                 </Form>
               </li>
@@ -109,9 +109,9 @@ export default function NoteDetailsPage() {
         ))}
         <li>
           <Form method="post">
-            <input name="_action" value="create" readOnly hidden />
-            <input name="model" value="section" readOnly hidden />
-            <input name="menuId" value={data.menu.id} readOnly hidden />
+            <MetaInput name="_action" value="create" />
+            <MetaInput name="model" value="section" />
+            <MetaInput name="menuId" value={data.menu.id} />
             <button type="submit">Agregar sección</button>
           </Form>
         </li>
@@ -124,8 +124,8 @@ export default function NoteDetailsPage() {
 function MenuTitleInput({ menu }: { menu: Menu }) {
   return (
     <AutoSubmitForm>
-      <input name="model" value="menu" readOnly hidden />
-      <input name="id" value={menu.id} readOnly hidden />
+      <MetaInput name="model" value="menu" />
+      <MetaInput name="id" value={menu.id} />
       <input
         className="text-2xl font-bold"
         name="title"
@@ -146,8 +146,8 @@ function SectionInput({
 }) {
   return (
     <AutoSubmitForm>
-      <input name="model" value="section" readOnly hidden />
-      <input name="id" value={section.id} readOnly hidden />
+      <MetaInput name="model" value="section" />
+      <MetaInput name="id" value={section.id} />
       <input
         name="title1"
         className="text-xl font-bold"
@@ -168,8 +168,8 @@ function ItemInput({
 }) {
   return (
     <AutoSubmitForm>
-      <input name="model" value="item" readOnly hidden />
-      <input name="id" value={item.id} readOnly hidden />
+      <MetaInput name="model" value="item" />
+      <MetaInput name="id" value={item.id} />
       <input
         name="title1"
         className="text-lg font-bold"
