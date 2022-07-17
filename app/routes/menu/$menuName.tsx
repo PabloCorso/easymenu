@@ -2,12 +2,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import type {
-  Item,
-  Menu,
-  MenuWithSections,
-  Section,
-} from "~/models/menu.server";
+import type { MenuWithSections } from "~/models/menu.server";
 import {
   getMenuByName,
   updateMenu,
@@ -17,8 +12,12 @@ import {
   updateItem,
 } from "~/models/menu.server";
 import { requireUserId } from "~/session.server";
-import { AutoSubmitForm, MetaInput } from "~/components";
-import { TextInput } from "../../components/textInput";
+import {
+  ItemInput,
+  MenuTitleInput,
+  MetaInput,
+  SectionInput,
+} from "~/components";
 
 type LoaderData = {
   menu: NonNullable<MenuWithSections>;
@@ -110,7 +109,7 @@ export default function NoteDetailsPage() {
                     <MetaInput name="model" value="item" />
                     <MetaInput name="sectionId" value={section.id} />
                     <button type="submit" className="text-blue-200">
-                      Agregar nuevo +
+                      + Agregar nuevo
                     </button>
                   </Form>
                 </li>
@@ -123,79 +122,13 @@ export default function NoteDetailsPage() {
               <MetaInput name="model" value="section" />
               <MetaInput name="menuId" value={data.menu.id} />
               <button type="submit" className="text-blue-200">
-                Nueva sección +
+                + Nueva categoría
               </button>
             </Form>
           </li>
         </ul>
       </div>
     </div>
-  );
-}
-
-function MenuTitleInput({
-  menu,
-  ...delegated
-}: {
-  menu: Menu;
-  className?: string;
-}) {
-  return (
-    <AutoSubmitForm {...delegated}>
-      <MetaInput name="model" value="menu" />
-      <MetaInput name="id" value={menu.id} />
-      <TextInput
-        className="text-2xl font-bold"
-        name="title"
-        defaultValue={menu.title || ""}
-        placeholder="Mi Menu"
-      />
-    </AutoSubmitForm>
-  );
-}
-
-function SectionInput({
-  section,
-  ...delegated
-}: {
-  section: Section;
-  className?: string;
-}) {
-  return (
-    <AutoSubmitForm {...delegated}>
-      <MetaInput name="model" value="section" />
-      <MetaInput name="id" value={section.id} />
-      <TextInput
-        name="title1"
-        className="pl-1 text-xl font-bold"
-        defaultValue={section.title1 || ""}
-        placeholder="Nueva sección"
-      />
-    </AutoSubmitForm>
-  );
-}
-
-function ItemInput({ item }: { item: Item }) {
-  return (
-    <AutoSubmitForm>
-      <MetaInput name="model" value="item" />
-      <MetaInput name="id" value={item.id} />
-      <fieldset className="flex">
-        <TextInput
-          name="text1"
-          className="m-auto w-full"
-          defaultValue={item.text1 || ""}
-          placeholder="Pollo a las brasas..."
-        />
-        <input
-          type="number"
-          name="price1"
-          className="max-w-[40px] bg-inherit text-right placeholder:italic"
-          defaultValue={item.price1 || ""}
-          placeholder="100"
-        />
-      </fieldset>
-    </AutoSubmitForm>
   );
 }
 

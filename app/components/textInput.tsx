@@ -5,11 +5,12 @@ type Props = React.InputHTMLAttributes<HTMLInputElement>;
 function TextInput({ className, ...props }: Props) {
   return (
     <input
-      {...props}
+      type="text"
       className={clsx(
         className,
         "w-full bg-inherit placeholder:italic placeholder:text-gray-400"
       )}
+      {...props}
     />
   );
 }
