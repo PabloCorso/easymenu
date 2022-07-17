@@ -15,7 +15,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   password Password?
-  notes    Note[]
+  menus    Menu[]
 }
 
 model Password {
@@ -25,14 +25,60 @@ model Password {
   userId String @unique
 }
 
-model Note {
-  id    String @id @default(cuid())
-  title String
-  body  String
+model Menu {
+  id              String  @id @default(cuid())
+  name            String
+  title           String?
+  logoUrl         String?
+  priceUnit       String?
+  footnote        String?
+  layout          String?
+  showAllergenics Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  sections Section[]
+
+  @@unique([name, userId])
+}
+
+model Section {
+  id           String  @id @default(cuid())
+  title1       String
+  title2       String?
+  description1 String?
+  description2 String?
+  order        Int
+  priceName1   String?
+  priceName2   String?
+  footnote     String?
+  layout       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menu   Menu   @relation(fields: [menuId], references: [id])
+  menuId String
+
+  items Item[]
+}
+
+model Item {
+  id          String  @id @default(cuid())
+  text1       String
+  text2       String?
+  price1      Int?
+  price2      Int?
+  allergenics Int?
+  layout      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  section   Section @relation(fields: [sectionId], references: [id])
+  sectionId String
 }
