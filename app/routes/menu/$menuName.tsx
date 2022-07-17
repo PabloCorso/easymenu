@@ -18,6 +18,7 @@ import {
 } from "~/models/menu.server";
 import { requireUserId } from "~/session.server";
 import { AutoSubmitForm, MetaInput } from "~/components";
+import { TextInput } from "../../components/textInput";
 
 type LoaderData = {
   menu: NonNullable<MenuWithSections>;
@@ -83,17 +84,20 @@ export default function NoteDetailsPage() {
   const transition = useTransition();
 
   return (
-    <div>
-      <MenuTitleInput menu={data.menu} />
+    <div className="rounded-2xl bg-gray-900 p-4 text-gray-50">
+      <MenuTitleInput className="mb-8" menu={data.menu} />
 
-      <ul>
+      <ul className="flex flex-col gap-6">
         {data.menu.sections.map((section) => (
           <li key={section.id}>
-            <SectionInput section={section} menuId={data.menu.id} />
-            <ul>
+            <SectionInput
+              className="mb-4 rounded-sm bg-white p-3 pl-4 text-gray-900"
+              section={section}
+            />
+            <ul className="flex flex-col gap-2">
               {section.items.map((item) => (
                 <li key={item.id}>
-                  <ItemInput item={item} sectionId={section.id} />
+                  <ItemInput item={item} />
                 </li>
               ))}
               <li>
@@ -121,62 +125,58 @@ export default function NoteDetailsPage() {
   );
 }
 
-function MenuTitleInput({ menu }: { menu: Menu }) {
+function MenuTitleInput({
+  menu,
+  ...delegated
+}: {
+  menu: Menu;
+  className?: string;
+}) {
   return (
-    <AutoSubmitForm>
+    <AutoSubmitForm {...delegated}>
       <MetaInput name="model" value="menu" />
       <MetaInput name="id" value={menu.id} />
-      <input
+      <TextInput
         className="text-2xl font-bold"
         name="title"
         defaultValue={menu.title || ""}
         placeholder="Mi Menu"
       />
-      <button type="submit" hidden />
     </AutoSubmitForm>
   );
 }
 
 function SectionInput({
   section,
-  menuId,
+  ...delegated
 }: {
   section: Section;
-  menuId: Menu["id"];
+  className?: string;
 }) {
   return (
-    <AutoSubmitForm>
+    <AutoSubmitForm {...delegated}>
       <MetaInput name="model" value="section" />
       <MetaInput name="id" value={section.id} />
-      <input
+      <TextInput
         name="title1"
         className="text-xl font-bold"
         defaultValue={section.title1 || ""}
         placeholder="Carnes..."
       />
-      <button type="submit" hidden />
     </AutoSubmitForm>
   );
 }
 
-function ItemInput({
-  item,
-  sectionId,
-}: {
-  item: Item;
-  sectionId: Section["id"];
-}) {
+function ItemInput({ item }: { item: Item }) {
   return (
     <AutoSubmitForm>
       <MetaInput name="model" value="item" />
       <MetaInput name="id" value={item.id} />
-      <input
-        name="title1"
-        className="text-lg font-bold"
+      <TextInput
+        name="text1"
         defaultValue={item.text1 || ""}
         placeholder="Pollo a las brasas..."
       />
-      <button type="submit" hidden />
     </AutoSubmitForm>
   );
 }
