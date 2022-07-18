@@ -63,7 +63,7 @@ function ItemInput({ item }: { item: Item }) {
           placeholder="Nuevo..."
           autoFocus={!hasText1}
         />
-        <div className="flex font-bold">
+        <label className="flex font-bold">
           <span className={clsx({ "italic text-gray-400": !hasPrice1 })}>
             $
           </span>
@@ -76,7 +76,7 @@ function ItemInput({ item }: { item: Item }) {
             min={0}
             max={9999}
           />
-        </div>
+        </label>
       </fieldset>
     </AutoSubmitForm>
   );

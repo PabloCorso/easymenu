@@ -5,6 +5,14 @@ import { prisma } from "~/db.server";
 export type { Menu, Section, Item };
 export type MenuWithSections = Prisma.PromiseReturnType<typeof getMenuByName>;
 
+export function getUserMenu({ userId }: Pick<Menu, "userId">) {
+  return prisma.menu.findFirst({
+    where: {
+      userId,
+    },
+  });
+}
+
 export function getMenuByName({
   name,
   userId,
