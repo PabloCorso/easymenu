@@ -10,6 +10,7 @@ import {
   updateSection,
   createItem,
   updateItem,
+  deleteItem,
 } from "~/models/menu.server";
 import { requireUserId } from "~/session.server";
 import {
@@ -40,7 +41,13 @@ export const action: ActionFunction = async ({ request }) => {
   const formAction = formData.get("_action");
   const model = formData.get("model");
 
-  if (formAction === "create") {
+  if (request.method === "DELETE") {
+    const id = formData.get("id");
+    console.log("delete", model, id);
+    if (typeof id === "string") {
+      await deleteItem({ id });
+    }
+  } else if (formAction === "create") {
     if (model === "section") {
       const menuId = formData.get("menuId");
       if (typeof menuId === "string") {

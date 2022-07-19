@@ -1,3 +1,4 @@
+import { useSubmit } from "@remix-run/react";
 import clsx from "clsx";
 import type { Item, Menu, Section } from "~/models/menu.server";
 import { AutoSubmitForm } from "./autoSubmitForm";
@@ -51,10 +52,19 @@ function SectionInput({
 function ItemInput({ item }: { item: Item }) {
   const hasPrice1 = Boolean(item.price1);
   const hasText1 = Boolean(item.text1);
+
+  const submit = useSubmit();
+  function handleBlur(event: React.FocusEvent<HTMLFormElement>) {
+    const isBlurOnEmptyText1 = event.target.name === "text1" && !hasText1;
+    if (isBlurOnEmptyText1) {
+      submit(event.currentTarget, { method: "delete" });
+    }
+  }
   return (
-    <AutoSubmitForm>
+    <AutoSubmitForm onBlur={handleBlur}>
       <MetaInput name="model" value="item" />
       <MetaInput name="id" value={item.id} />
+      <MetaInput name="_action" value={"update"} />
       <fieldset className="flex items-center gap-2">
         <TextInput
           name="text1"

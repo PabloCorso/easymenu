@@ -126,6 +126,12 @@ export function updateItem({
   });
 }
 
+export async function deleteItem({ id }: Pick<Item, "id">) {
+  return prisma.item.delete({
+    where: { id },
+  });
+}
+
 export async function deleteUserMenus({ userId }: { userId: User["id"] }) {
   await prisma.item.deleteMany({
     where: { section: { menu: { userId } } },
