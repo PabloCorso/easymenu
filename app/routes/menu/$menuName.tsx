@@ -97,7 +97,7 @@ export default function NoteDetailsPage() {
                 className="mb-4 rounded-sm bg-white p-3 text-gray-900"
                 section={section}
               />
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-1">
                 {section.items.map((item) => (
                   <li key={item.id}>
                     <ItemInput item={item} />

@@ -10,7 +10,7 @@ export function buildMenu({
 }) {
   return {
     name,
-    title: "Title",
+    title: "Título",
     userId,
     sections: [
       {

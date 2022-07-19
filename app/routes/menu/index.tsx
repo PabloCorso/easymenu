@@ -20,9 +20,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function NoteIndexPage() {
   return (
     <p>
-      No menu selected. Select a menu on the left, or{" "}
-      <Link to="new" className="text-blue-500 underline">
-        create a new menu.
+      Para crear un menu vuelve a la{" "}
+      <Link to={Paths.root} className="text-blue-500 underline">
+        página principal.
       </Link>
     </p>
   );

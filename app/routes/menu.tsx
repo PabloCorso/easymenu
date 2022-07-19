@@ -28,8 +28,8 @@ export default function MenuPage() {
         <p>{user.email}</p>
       </header>
 
-      <main className="flex h-full bg-white">
-        <div className="flex-1 overflow-auto p-6">
+      <main className="flex bg-white">
+        <div className="flex-1 py-6">
           <Outlet />
         </div>
       </main>

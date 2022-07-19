@@ -8,7 +8,7 @@ function TextInput({ className, ...props }: Props) {
       type="text"
       className={clsx(
         className,
-        "w-full bg-inherit placeholder:italic placeholder:text-gray-400"
+        "w-full bg-inherit px-1 leading-loose placeholder:italic placeholder:text-gray-400"
       )}
       {...props}
     />

@@ -39,7 +39,7 @@ function SectionInput({
       <MetaInput name="id" value={section.id} />
       <TextInput
         name="title1"
-        className="pl-1 text-xl font-bold"
+        className="text-xl font-bold"
         defaultValue={section.title1 || ""}
         placeholder="Nueva sección"
         autoFocus={!hasTitle1}
@@ -55,7 +55,7 @@ function ItemInput({ item }: { item: Item }) {
     <AutoSubmitForm>
       <MetaInput name="model" value="item" />
       <MetaInput name="id" value={item.id} />
-      <fieldset className="flex">
+      <fieldset className="flex items-center gap-2">
         <TextInput
           name="text1"
           className="m-auto w-full text-ellipsis whitespace-nowrap"
@@ -63,14 +63,18 @@ function ItemInput({ item }: { item: Item }) {
           placeholder="Nuevo..."
           autoFocus={!hasText1}
         />
-        <label className="flex font-bold">
-          <span className={clsx({ "italic text-gray-400": !hasPrice1 })}>
+        <label className="relative flex font-bold">
+          <span
+            className={clsx("absolute left-1", {
+              "italic text-gray-400": !hasPrice1,
+            })}
+          >
             $
           </span>
           <input
             type="number"
             name="price1"
-            className="max-w-[40px] bg-inherit text-right placeholder:italic"
+            className="max-w-[54px] bg-inherit pl-2 text-right placeholder:italic"
             defaultValue={item.price1 || ""}
             placeholder="100"
             min={0}
