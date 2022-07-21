@@ -1,9 +1,10 @@
 import { useSubmit } from "@remix-run/react";
 import clsx from "clsx";
-import type { Item, Menu, Section } from "~/models/menu.server";
+import type { Item, Menu, SectionWithItems } from "~/models/menu.server";
 import { AutoSubmitForm } from "./autoSubmitForm";
 import { MetaInput } from "./metaInput";
 import { TextInput } from "./textInput";
+// import { Trash } from "./icons";
 
 function MenuTitleInput({
   menu,
@@ -28,23 +29,42 @@ function MenuTitleInput({
 
 function SectionInput({
   section,
+  className,
   ...delegated
 }: {
-  section: Section;
+  section: SectionWithItems;
   className?: string;
 }) {
   const hasTitle1 = Boolean(section.title1);
+
+  const submit = useSubmit();
+  function handleBlur(event: React.FocusEvent<HTMLFormElement>) {
+    const isEmptyTitle1 =
+      event.target.name === "title1" && event.target.value === "";
+    const hasItems = section.items?.length > 0;
+    if (isEmptyTitle1 && !hasItems) {
+      submit(event.currentTarget, { method: "delete" });
+    }
+  }
   return (
-    <AutoSubmitForm {...delegated}>
+    <AutoSubmitForm
+      onBlur={handleBlur}
+      className={clsx(className, "group relative flex")}
+      {...delegated}
+    >
       <MetaInput name="model" value="section" />
       <MetaInput name="id" value={section.id} />
       <TextInput
         name="title1"
+        // mr-7
         className="text-xl font-bold"
         defaultValue={section.title1 || ""}
         placeholder="Nueva sección"
         autoFocus={!hasTitle1}
       />
+      {/* <button className="absolute top-0 right-0 bottom-0 hidden w-10 items-center justify-center focus-within:flex group-hover:flex">
+        <Trash size={20} />
+      </button> */}
     </AutoSubmitForm>
   );
 }
@@ -55,9 +75,9 @@ function ItemInput({ item }: { item: Item }) {
 
   const submit = useSubmit();
   function handleBlur(event: React.FocusEvent<HTMLFormElement>) {
-    const isBlurOnEmptyText1 =
+    const isEmptyText1 =
       event.target.name === "text1" && event.target.value === "";
-    if (isBlurOnEmptyText1) {
+    if (isEmptyText1) {
       submit(event.currentTarget, { method: "delete" });
     }
   }

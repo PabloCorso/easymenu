@@ -8,6 +8,7 @@ import {
   updateMenu,
   createSection,
   updateSection,
+  deleteSection,
   createItem,
   updateItem,
   deleteItem,
@@ -43,9 +44,12 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (request.method === "DELETE") {
     const id = formData.get("id");
-    console.log("delete", model, id);
     if (typeof id === "string") {
-      await deleteItem({ id });
+      if (model === "section") {
+        await deleteSection({ id });
+      } else if (model === "item") {
+        await deleteItem({ id });
+      }
     }
   } else if (formAction === "create") {
     if (model === "section") {

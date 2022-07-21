@@ -4,6 +4,7 @@ import { prisma } from "~/db.server";
 
 export type { Menu, Section, Item };
 export type MenuWithSections = Prisma.PromiseReturnType<typeof getMenuByName>;
+export type SectionWithItems = Section & { items: Item[] };
 
 export function getUserMenu({ userId }: Pick<Menu, "userId">) {
   return prisma.menu.findFirst({
@@ -95,6 +96,12 @@ export function updateSection({ id, title1 }: Pick<Section, "id" | "title1">) {
     data: {
       title1,
     },
+  });
+}
+
+export async function deleteSection({ id }: Pick<Section, "id">) {
+  return prisma.section.delete({
+    where: { id },
   });
 }
 
