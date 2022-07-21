@@ -4,7 +4,6 @@ import type { Item, Menu, SectionWithItems } from "~/models/menu.server";
 import { AutoSubmitForm } from "./autoSubmitForm";
 import { MetaInput } from "./metaInput";
 import { TextInput } from "./textInput";
-// import { Trash } from "./icons";
 
 function MenuTitleInput({
   menu,
@@ -56,15 +55,11 @@ function SectionInput({
       <MetaInput name="id" value={section.id} />
       <TextInput
         name="title1"
-        // mr-7
         className="text-xl font-bold"
         defaultValue={section.title1 || ""}
         placeholder="Nueva sección"
         autoFocus={!hasTitle1}
       />
-      {/* <button className="absolute top-0 right-0 bottom-0 hidden w-10 items-center justify-center focus-within:flex group-hover:flex">
-        <Trash size={20} />
-      </button> */}
     </AutoSubmitForm>
   );
 }
