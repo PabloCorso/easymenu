@@ -55,7 +55,8 @@ function ItemInput({ item }: { item: Item }) {
 
   const submit = useSubmit();
   function handleBlur(event: React.FocusEvent<HTMLFormElement>) {
-    const isBlurOnEmptyText1 = event.target.name === "text1" && !hasText1;
+    const isBlurOnEmptyText1 =
+      event.target.name === "text1" && event.target.value === "";
     if (isBlurOnEmptyText1) {
       submit(event.currentTarget, { method: "delete" });
     }
