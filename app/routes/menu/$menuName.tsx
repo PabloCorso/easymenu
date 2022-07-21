@@ -95,7 +95,7 @@ export default function NoteDetailsPage() {
   return (
     <div className="relative flex justify-center">
       <div className="w-full max-w-[500px] rounded-2xl bg-gray-900 p-4 text-gray-50">
-        <MenuTitleInput className="mb-8" menu={data.menu} />
+        <MenuTitleInput className="mb-6" menu={data.menu} />
 
         <ul className="flex flex-col gap-6">
           {data.menu.sections.map((section) => (
@@ -115,7 +115,7 @@ export default function NoteDetailsPage() {
                     <MetaInput name="_action" value="create" />
                     <MetaInput name="model" value="item" />
                     <MetaInput name="sectionId" value={section.id} />
-                    <button type="submit" className="text-blue-200">
+                    <button type="submit" className="ml-1 h-8 text-blue-200">
                       + Agregar nuevo
                     </button>
                   </Form>
@@ -128,7 +128,7 @@ export default function NoteDetailsPage() {
               <MetaInput name="_action" value="create" />
               <MetaInput name="model" value="section" />
               <MetaInput name="menuId" value={data.menu.id} />
-              <button type="submit" className="text-blue-200">
+              <button type="submit" className="ml-1 h-12 w-full text-blue-200">
                 + Nueva categoría
               </button>
             </Form>
