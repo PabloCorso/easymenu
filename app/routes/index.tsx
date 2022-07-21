@@ -40,7 +40,7 @@ export default function Index() {
     <main className="relative flex min-h-screen items-center justify-center bg-white">
       {user ? (
         <div className="flex flex-col gap-2">
-          <h1>Hi {user.email}</h1>
+          <h1>Hola {user.email}</h1>
           {hasMenu ? (
             <Link to={Paths.menu} className="btn btn-primary w-full">
               Editar menu

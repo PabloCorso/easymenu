@@ -57,7 +57,7 @@ function SectionInput({
         name="title1"
         className="text-xl font-bold"
         defaultValue={section.title1 || ""}
-        placeholder="Nueva sección"
+        placeholder="Nueva categoría"
         autoFocus={!hasTitle1}
       />
     </AutoSubmitForm>
