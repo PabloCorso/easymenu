@@ -100,7 +100,7 @@ function ItemInput({ item }: { item: Item }) {
           <input
             type="number"
             name="price1"
-            className="max-w-[54px] bg-inherit pl-2 text-right placeholder:italic"
+            className="max-w-[56px] bg-inherit pr-1 pl-2 text-right placeholder:italic"
             defaultValue={item.price1 || ""}
             placeholder="100"
             min={0}
