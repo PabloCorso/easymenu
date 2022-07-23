@@ -28,7 +28,6 @@ function MenuTitleInput({
 
 function SectionInput({
   section,
-  className,
   ...delegated
 }: {
   section: SectionWithItems;
@@ -46,11 +45,7 @@ function SectionInput({
     }
   }
   return (
-    <AutoSubmitForm
-      onBlur={handleBlur}
-      className={clsx(className, "group relative flex")}
-      {...delegated}
-    >
+    <AutoSubmitForm onBlur={handleBlur} {...delegated}>
       <MetaInput name="model" value="section" />
       <MetaInput name="id" value={section.id} />
       <TextInput
