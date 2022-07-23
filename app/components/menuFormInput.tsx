@@ -17,7 +17,7 @@ function MenuTitleInput({
       <MetaInput name="model" value="menu" />
       <MetaInput name="id" value={menu.id} />
       <TextInput
-        className="text-2xl font-bold"
+        className="text-2xl font-bold leading-7"
         name="title"
         defaultValue={menu.title || ""}
         placeholder="Mi Menu"
@@ -55,7 +55,7 @@ function SectionInput({
       <MetaInput name="id" value={section.id} />
       <TextInput
         name="title1"
-        className="text-xl font-bold"
+        className="text-xl font-bold leading-6"
         defaultValue={section.title1 || ""}
         placeholder="Nueva categoría"
         autoFocus={!hasTitle1}
@@ -84,7 +84,7 @@ function ItemInput({ item }: { item: Item }) {
       <fieldset className="flex items-center gap-2">
         <TextInput
           name="text1"
-          className="m-auto w-full text-ellipsis whitespace-nowrap"
+          className="m-auto w-full"
           defaultValue={item.text1 || ""}
           placeholder="Nuevo..."
           autoFocus={!hasText1}
