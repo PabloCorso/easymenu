@@ -115,7 +115,7 @@ export default function NoteDetailsPage() {
                   </li>
                 ))}
                 <li>
-                  <Form method="post">
+                  <Form method="post" replace>
                     <MetaInput name="_action" value="create" />
                     <MetaInput name="model" value="item" />
                     <MetaInput name="sectionId" value={section.id} />
@@ -128,7 +128,7 @@ export default function NoteDetailsPage() {
             </li>
           ))}
           <li>
-            <Form method="post">
+            <Form method="post" replace>
               <MetaInput name="_action" value="create" />
               <MetaInput name="model" value="section" />
               <MetaInput name="menuId" value={data.menu.id} />
